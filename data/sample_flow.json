@@ -1,0 +1,557 @@
+[
+  {
+    "event_id": "H1-hospital_capacity_changed-001",
+    "event_type": "HOSPITAL_CAPACITY_CHANGED",
+    "aggregate_type": "hospital_capacity",
+    "aggregate_id": "H1",
+    "occurred_at": "2026-09-24T11:58:00+08:00",
+    "version": 1,
+    "summary": "医院 市第一医院（综合卒中中心） 容量更新：open，空床 2",
+    "payload": {
+      "name": "市第一医院（综合卒中中心）",
+      "capability": "comprehensive",
+      "beds_available": 2,
+      "status": "open",
+      "reason": "建册"
+    },
+    "operator_id": "capacity-admin"
+  },
+  {
+    "event_id": "H2-hospital_capacity_changed-001",
+    "event_type": "HOSPITAL_CAPACITY_CHANGED",
+    "aggregate_type": "hospital_capacity",
+    "aggregate_id": "H2",
+    "occurred_at": "2026-09-24T11:58:00+08:00",
+    "version": 1,
+    "summary": "医院 区人民医院（卒中防治中心） 容量更新：open，空床 1",
+    "payload": {
+      "name": "区人民医院（卒中防治中心）",
+      "capability": "primary",
+      "beds_available": 1,
+      "status": "open",
+      "reason": "建册"
+    },
+    "operator_id": "capacity-admin"
+  },
+  {
+    "event_id": "H3-hospital_capacity_changed-001",
+    "event_type": "HOSPITAL_CAPACITY_CHANGED",
+    "aggregate_type": "hospital_capacity",
+    "aggregate_id": "H3",
+    "occurred_at": "2026-09-24T11:58:00+08:00",
+    "version": 1,
+    "summary": "医院 城北医院 容量更新：full，空床 0",
+    "payload": {
+      "name": "城北医院",
+      "capability": "basic",
+      "beds_available": 0,
+      "status": "full",
+      "reason": "临时满负荷，暂不接诊卒中"
+    },
+    "operator_id": "capacity-admin"
+  },
+  {
+    "event_id": "case-20260924-001-call_received-001",
+    "event_type": "CALL_RECEIVED",
+    "aggregate_type": "emergency_call",
+    "aggregate_id": "case-20260924-001",
+    "occurred_at": "2026-09-24T12:00:00+08:00",
+    "version": 1,
+    "summary": "接入 13800001111 的急救来电",
+    "payload": {
+      "caller_number": "13800001111",
+      "device_id": "dev-watch-007",
+      "address": "幸福小区 3 号楼 502",
+      "location_authorized": true,
+      "location_scope": "precise"
+    },
+    "operator_id": "dispatcher-li",
+    "role_required": "dispatcher"
+  },
+  {
+    "event_id": "case-20260924-001-symptom_reported-001",
+    "event_type": "SYMPTOM_REPORTED",
+    "aggregate_type": "emergency_call",
+    "aggregate_id": "case-20260924-001",
+    "occurred_at": "2026-09-24T12:01:00+08:00",
+    "version": 2,
+    "summary": "登记症状原话",
+    "payload": {
+      "kind": "symptom",
+      "text": "我老伴突然剧烈头痛，吐了两次，现在说话含糊，右边手脚抬不起来",
+      "source": "家属（配偶）",
+      "onset_time": "2026-09-24T11:40:00+08:00"
+    },
+    "operator_id": "dispatcher-li"
+  },
+  {
+    "event_id": "case-20260924-001-triage_hint_emitted-001",
+    "event_type": "TRIAGE_HINT_EMITTED",
+    "aggregate_type": "emergency_call",
+    "aggregate_id": "case-20260924-001",
+    "occurred_at": "2026-09-24T12:01:00+08:00",
+    "version": 3,
+    "summary": "自动分诊提示：红色级别（非诊断）",
+    "payload": {
+      "level": 4,
+      "level_label": "红色",
+      "raw_level": 4,
+      "is_diagnosis": false,
+      "hint_text": "系统分诊提示：红色级别（突发剧烈头痛）。本提示由登记规则自动生成，不是诊断结论，最终分级以专业人员判断为准。",
+      "matched_rules": [
+        {
+          "code": "RED_SYMPTOM",
+          "level": 4,
+          "description": "突发剧烈头痛",
+          "evidence": "原话命中“剧烈头痛”：我老伴突然剧烈头痛，吐了两次，现在说话含糊，右边手脚抬不起来"
+        }
+      ]
+    },
+    "causation_id": "case-20260924-001-symptom_reported-001",
+    "operator_id": "system-triage"
+  },
+  {
+    "event_id": "case-20260924-001-risk_locked-001",
+    "event_type": "RISK_LOCKED",
+    "aggregate_type": "emergency_call",
+    "aggregate_id": "case-20260924-001",
+    "occurred_at": "2026-09-24T12:01:00+08:00",
+    "version": 4,
+    "summary": "达到高危阈值，事件锁定并启动转运选择",
+    "payload": {
+      "level": 4,
+      "trigger": "自动分诊阈值",
+      "monotonic": true,
+      "note": "锁定后补充资料只能增加上下文，不能降低级别"
+    },
+    "causation_id": "case-20260924-001-triage_hint_emitted-001",
+    "operator_id": "system-triage"
+  },
+  {
+    "event_id": "case-20260924-001-on_scene_guidance_issued-001",
+    "event_type": "ON_SCENE_GUIDANCE_ISSUED",
+    "aggregate_type": "emergency_call",
+    "aggregate_id": "case-20260924-001",
+    "occurred_at": "2026-09-24T12:01:00+08:00",
+    "version": 5,
+    "summary": "向现场发出等待期间照护与禁忌指导",
+    "payload": {
+      "guidance_version": 1,
+      "items": [
+        "保持患者呼吸道通畅：解开领口，昏迷或呕吐时将头部偏向一侧，及时清理呕吐物",
+        "不要给患者喂水、喂食或喂任何药物（包括降压药、止痛药）",
+        "不要随意搬动患者，尤其避免头部剧烈晃动；如需移动应整体平移",
+        "让患者安静平卧，记录最后正常（发病）时间，等待急救人员",
+        "如出现呼吸心跳停止，按调度员指导立即开始心肺复苏"
+      ],
+      "disclaimer": "以上为系统按高危阈值自动发出的现场指导，不是诊断结论；专业人员可补充或调整判断。",
+      "is_diagnosis": false
+    },
+    "causation_id": "case-20260924-001-risk_locked-001",
+    "operator_id": "system-triage"
+  },
+  {
+    "event_id": "transport-case-20260924-001-route_proposed-001",
+    "event_type": "ROUTE_PROPOSED",
+    "aggregate_type": "transport_task",
+    "aggregate_id": "transport-case-20260924-001",
+    "occurred_at": "2026-09-24T12:01:00+08:00",
+    "version": 1,
+    "summary": "锁定后启动转运选择，给出候选路线",
+    "payload": {
+      "case_id": "case-20260924-001",
+      "trigger": "RISK_LOCKED",
+      "candidates": [
+        {
+          "hospital_id": "H1",
+          "name": "市第一医院（综合卒中中心）",
+          "capability": "comprehensive",
+          "eta_minutes": 25,
+          "beds_available": 2,
+          "status": "open",
+          "can_accept": true
+        },
+        {
+          "hospital_id": "H2",
+          "name": "区人民医院（卒中防治中心）",
+          "capability": "primary",
+          "eta_minutes": 12,
+          "beds_available": 1,
+          "status": "open",
+          "can_accept": true
+        }
+      ],
+      "chosen_hospital_id": "H1",
+      "reason": "按卒中接诊能力、预计到达时间（25分钟）、空床数排序"
+    },
+    "correlation_id": "case-20260924-001",
+    "operator_id": "system-dispatch"
+  },
+  {
+    "event_id": "case-20260924-001-notification_sent-001",
+    "event_type": "NOTIFICATION_SENT",
+    "aggregate_type": "emergency_call",
+    "aggregate_id": "case-20260924-001",
+    "occurred_at": "2026-09-24T12:01:00+08:00",
+    "version": 6,
+    "summary": "高危锁定：通知车队准备派车",
+    "payload": {
+      "channel": "fleet-radio",
+      "target": "fleet-desk",
+      "target_role": "fleet",
+      "ref_event_id": "case-20260924-001-risk_locked-001",
+      "receipt_status": "pending"
+    },
+    "causation_id": "case-20260924-001-risk_locked-001",
+    "operator_id": "system-notify"
+  },
+  {
+    "event_id": "case-20260924-001-notification_sent-002",
+    "event_type": "NOTIFICATION_SENT",
+    "aggregate_type": "emergency_call",
+    "aggregate_id": "case-20260924-001",
+    "occurred_at": "2026-09-24T12:01:00+08:00",
+    "version": 7,
+    "summary": "高危锁定：向首选医院发出接诊预告",
+    "payload": {
+      "channel": "hospital-hotline",
+      "target": "H1",
+      "target_role": "hospital",
+      "ref_event_id": "transport-case-20260924-001-route_proposed-001",
+      "receipt_status": "pending"
+    },
+    "causation_id": "transport-case-20260924-001-route_proposed-001",
+    "operator_id": "system-notify"
+  },
+  {
+    "event_id": "case-20260924-001-symptom_reported-002",
+    "event_type": "SYMPTOM_REPORTED",
+    "aggregate_type": "emergency_call",
+    "aggregate_id": "case-20260924-001",
+    "occurred_at": "2026-09-24T12:02:00+08:00",
+    "version": 8,
+    "summary": "登记既往风险",
+    "payload": {
+      "kind": "history",
+      "text": "既往有脑梗、高血压",
+      "source": "家属（配偶）"
+    },
+    "operator_id": "dispatcher-li"
+  },
+  {
+    "event_id": "case-20260924-001-triage_hint_emitted-002",
+    "event_type": "TRIAGE_HINT_EMITTED",
+    "aggregate_type": "emergency_call",
+    "aggregate_id": "case-20260924-001",
+    "occurred_at": "2026-09-24T12:02:00+08:00",
+    "version": 9,
+    "summary": "自动分诊提示：红色级别（非诊断）",
+    "payload": {
+      "level": 4,
+      "level_label": "红色",
+      "raw_level": 4,
+      "is_diagnosis": false,
+      "hint_text": "系统分诊提示：红色级别（突发剧烈头痛）。本提示由登记规则自动生成，不是诊断结论，最终分级以专业人员判断为准。",
+      "matched_rules": [
+        {
+          "code": "RED_SYMPTOM",
+          "level": 4,
+          "description": "突发剧烈头痛",
+          "evidence": "原话命中“剧烈头痛”：我老伴突然剧烈头痛，吐了两次，现在说话含糊，右边手脚抬不起来"
+        }
+      ]
+    },
+    "causation_id": "case-20260924-001-symptom_reported-002",
+    "operator_id": "system-triage"
+  },
+  {
+    "event_id": "case-20260924-001-symptom_reported-003",
+    "event_type": "SYMPTOM_REPORTED",
+    "aggregate_type": "emergency_call",
+    "aggregate_id": "case-20260924-001",
+    "occurred_at": "2026-09-24T12:02:00+08:00",
+    "version": 10,
+    "summary": "登记用药",
+    "payload": {
+      "kind": "medication",
+      "text": "长期服用阿司匹林",
+      "source": "家属（配偶）"
+    },
+    "operator_id": "dispatcher-li"
+  },
+  {
+    "event_id": "case-20260924-001-triage_hint_emitted-003",
+    "event_type": "TRIAGE_HINT_EMITTED",
+    "aggregate_type": "emergency_call",
+    "aggregate_id": "case-20260924-001",
+    "occurred_at": "2026-09-24T12:02:00+08:00",
+    "version": 11,
+    "summary": "自动分诊提示：红色级别（非诊断）",
+    "payload": {
+      "level": 4,
+      "level_label": "红色",
+      "raw_level": 4,
+      "is_diagnosis": false,
+      "hint_text": "系统分诊提示：红色级别（突发剧烈头痛）。本提示由登记规则自动生成，不是诊断结论，最终分级以专业人员判断为准。",
+      "matched_rules": [
+        {
+          "code": "RED_SYMPTOM",
+          "level": 4,
+          "description": "突发剧烈头痛",
+          "evidence": "原话命中“剧烈头痛”：我老伴突然剧烈头痛，吐了两次，现在说话含糊，右边手脚抬不起来"
+        }
+      ]
+    },
+    "causation_id": "case-20260924-001-symptom_reported-003",
+    "operator_id": "system-triage"
+  },
+  {
+    "event_id": "case-20260924-001-family_acknowledged-001",
+    "event_type": "FAMILY_ACKNOWLEDGED",
+    "aggregate_type": "emergency_call",
+    "aggregate_id": "case-20260924-001",
+    "occurred_at": "2026-09-24T12:03:00+08:00",
+    "version": 12,
+    "summary": "家属配偶王女士确认收到现场指导",
+    "payload": {
+      "family_member": "配偶王女士",
+      "guidance_version": 1,
+      "channel": "phone"
+    },
+    "operator_id": "配偶王女士"
+  },
+  {
+    "event_id": "H1-hospital_capacity_changed-002",
+    "event_type": "HOSPITAL_CAPACITY_CHANGED",
+    "aggregate_type": "hospital_capacity",
+    "aggregate_id": "H1",
+    "occurred_at": "2026-09-24T12:06:00+08:00",
+    "version": 2,
+    "summary": "医院 市第一医院（综合卒中中心） 容量更新：full，空床 0",
+    "payload": {
+      "name": "市第一医院（综合卒中中心）",
+      "capability": "comprehensive",
+      "beds_available": 0,
+      "status": "full",
+      "reason": "急诊抢救室满负荷"
+    },
+    "operator_id": "capacity-admin"
+  },
+  {
+    "event_id": "transport-case-20260924-001-route_recalculated-001",
+    "event_type": "ROUTE_RECALCULATED",
+    "aggregate_type": "transport_task",
+    "aggregate_id": "transport-case-20260924-001",
+    "occurred_at": "2026-09-24T12:06:00+08:00",
+    "version": 2,
+    "summary": "医院临时满负荷，重算未出发路线",
+    "payload": {
+      "case_id": "case-20260924-001",
+      "trigger": "CAPACITY_CHANGED:H1:full",
+      "candidates": [
+        {
+          "hospital_id": "H2",
+          "name": "区人民医院（卒中防治中心）",
+          "capability": "primary",
+          "eta_minutes": 12,
+          "beds_available": 1,
+          "status": "open",
+          "can_accept": true
+        }
+      ],
+      "chosen_hospital_id": "H2",
+      "reason": "按卒中接诊能力、预计到达时间（12分钟）、空床数排序"
+    },
+    "correlation_id": "case-20260924-001",
+    "operator_id": "system-dispatch"
+  },
+  {
+    "event_id": "case-20260924-001-notification_sent-003",
+    "event_type": "NOTIFICATION_SENT",
+    "aggregate_type": "emergency_call",
+    "aggregate_id": "case-20260924-001",
+    "occurred_at": "2026-09-24T12:06:00+08:00",
+    "version": 13,
+    "summary": "首选医院满负荷：改派本院并发出接诊预告",
+    "payload": {
+      "channel": "hospital-hotline",
+      "target": "H2",
+      "target_role": "hospital",
+      "ref_event_id": "transport-case-20260924-001-route_recalculated-001",
+      "receipt_status": "pending"
+    },
+    "causation_id": "transport-case-20260924-001-route_recalculated-001",
+    "operator_id": "system-notify"
+  },
+  {
+    "event_id": "transport-case-20260924-001-transport_assigned-001",
+    "event_type": "TRANSPORT_ASSIGNED",
+    "aggregate_type": "transport_task",
+    "aggregate_id": "transport-case-20260924-001",
+    "occurred_at": "2026-09-24T12:07:00+08:00",
+    "version": 3,
+    "summary": "指派急救车 A-12 送往 H2",
+    "payload": {
+      "case_id": "case-20260924-001",
+      "ambulance_id": "A-12",
+      "hospital_id": "H2"
+    },
+    "correlation_id": "case-20260924-001",
+    "operator_id": "fleet-zhao"
+  },
+  {
+    "event_id": "transport-case-20260924-001-ambulance_departed-001",
+    "event_type": "AMBULANCE_DEPARTED",
+    "aggregate_type": "transport_task",
+    "aggregate_id": "transport-case-20260924-001",
+    "occurred_at": "2026-09-24T12:08:00+08:00",
+    "version": 4,
+    "summary": "急救车出发，路线冻结",
+    "payload": {
+      "case_id": "case-20260924-001",
+      "ambulance_id": "A-12"
+    },
+    "correlation_id": "case-20260924-001",
+    "operator_id": "A-12-carer"
+  },
+  {
+    "event_id": "transport-case-20260924-001-ambulance_offline-001",
+    "event_type": "AMBULANCE_OFFLINE",
+    "aggregate_type": "transport_task",
+    "aggregate_id": "transport-case-20260924-001",
+    "occurred_at": "2026-09-24T12:10:00+08:00",
+    "version": 5,
+    "summary": "急救车失联，现场/车载状态本地继续推进",
+    "payload": {
+      "case_id": "case-20260924-001",
+      "ambulance_id": "A-12",
+      "note": "进入隧道区间"
+    },
+    "correlation_id": "case-20260924-001",
+    "operator_id": "A-12"
+  },
+  {
+    "event_id": "H2-hospital_capacity_changed-002",
+    "event_type": "HOSPITAL_CAPACITY_CHANGED",
+    "aggregate_type": "hospital_capacity",
+    "aggregate_id": "H2",
+    "occurred_at": "2026-09-24T12:18:00+08:00",
+    "version": 2,
+    "summary": "医院 区人民医院（卒中防治中心） 容量更新：full，空床 0",
+    "payload": {
+      "name": "区人民医院（卒中防治中心）",
+      "capability": "primary",
+      "beds_available": 0,
+      "status": "full",
+      "reason": "CT 室临时故障"
+    },
+    "operator_id": "capacity-admin"
+  },
+  {
+    "event_id": "H2-hospital_capacity_changed-003",
+    "event_type": "HOSPITAL_CAPACITY_CHANGED",
+    "aggregate_type": "hospital_capacity",
+    "aggregate_id": "H2",
+    "occurred_at": "2026-09-24T12:28:00+08:00",
+    "version": 3,
+    "summary": "医院 区人民医院（卒中防治中心） 容量更新：open，空床 1",
+    "payload": {
+      "name": "区人民医院（卒中防治中心）",
+      "capability": "primary",
+      "beds_available": 1,
+      "status": "open",
+      "reason": "CT 室恢复"
+    },
+    "operator_id": "capacity-admin"
+  },
+  {
+    "event_id": "transport-case-20260924-001-ambulance_arrived-001",
+    "event_type": "AMBULANCE_ARRIVED",
+    "aggregate_type": "transport_task",
+    "aggregate_id": "transport-case-20260924-001",
+    "occurred_at": "2026-09-24T12:24:00+08:00",
+    "version": 6,
+    "summary": "急救车到达现场",
+    "payload": {
+      "case_id": "case-20260924-001",
+      "phase": "scene",
+      "ambulance_id": "A-12"
+    },
+    "correlation_id": "case-20260924-001",
+    "operator_id": "A-12"
+  },
+  {
+    "event_id": "transport-case-20260924-001-ambulance_reconnected-001",
+    "event_type": "AMBULANCE_RECONNECTED",
+    "aggregate_type": "transport_task",
+    "aggregate_id": "transport-case-20260924-001",
+    "occurred_at": "2026-09-24T12:30:00+08:00",
+    "version": 7,
+    "summary": "通信恢复，仅补传尚无确认回执的事件",
+    "payload": {
+      "case_id": "case-20260924-001",
+      "ambulance_id": "A-12",
+      "synced_event_ids": [
+        "transport-case-20260924-001-ambulance_arrived-001"
+      ]
+    },
+    "correlation_id": "case-20260924-001",
+    "operator_id": "A-12"
+  },
+  {
+    "event_id": "transport-case-20260924-001-hospital_accepted-001",
+    "event_type": "HOSPITAL_ACCEPTED",
+    "aggregate_type": "transport_task",
+    "aggregate_id": "transport-case-20260924-001",
+    "occurred_at": "2026-09-24T12:31:00+08:00",
+    "version": 8,
+    "summary": "医院 H2 确认接诊",
+    "payload": {
+      "case_id": "case-20260924-001",
+      "hospital_id": "H2",
+      "note": ""
+    },
+    "correlation_id": "case-20260924-001",
+    "operator_id": "H2-stroke-nurse"
+  },
+  {
+    "event_id": "transport-case-20260924-001-ambulance_arrived-002",
+    "event_type": "AMBULANCE_ARRIVED",
+    "aggregate_type": "transport_task",
+    "aggregate_id": "transport-case-20260924-001",
+    "occurred_at": "2026-09-24T12:42:00+08:00",
+    "version": 9,
+    "summary": "急救车到达医院",
+    "payload": {
+      "case_id": "case-20260924-001",
+      "phase": "hospital",
+      "ambulance_id": "A-12"
+    },
+    "correlation_id": "case-20260924-001",
+    "operator_id": "A-12-carer"
+  },
+  {
+    "event_id": "transport-case-20260924-001-handoff_recorded-001",
+    "event_type": "HANDOFF_RECORDED",
+    "aggregate_type": "transport_task",
+    "aggregate_id": "transport-case-20260924-001",
+    "occurred_at": "2026-09-24T12:44:00+08:00",
+    "version": 10,
+    "summary": "与 H2-卒中绿道护士 完成院内交接",
+    "payload": {
+      "case_id": "case-20260924-001",
+      "hospital_id": "H2",
+      "from_staff": "A-12-急救员周师傅",
+      "to_staff": "H2-卒中绿道护士",
+      "vital_signs": {
+        "血压": "188/102",
+        "心率": 96,
+        "血氧": "95%",
+        "意识": "嗜睡"
+      },
+      "note": "发病时间 11:40，院前已禁食水药"
+    },
+    "correlation_id": "case-20260924-001",
+    "operator_id": "A-12-急救员周师傅"
+  }
+]

@@ -20,10 +20,31 @@
       "type": "string",
       "enum": [
         "CALL_RECEIVED",
+        "SYMPTOM_REPORTED",
+        "LOCATION_AUTHORIZATION_GRANTED",
+        "LOCATION_AUTHORIZATION_REVOKED",
+        "TRIAGE_HINT_EMITTED",
+        "PROFESSIONAL_DECISION_RECORDED",
         "RISK_LOCKED",
+        "ON_SCENE_GUIDANCE_ISSUED",
+        "FAMILY_ACKNOWLEDGED",
+        "ONSET_TIME_CORRECTED",
+        "DUPLICATE_REPORT_MERGED",
+        "DUPLICATE_REPORT_REJECTED",
+        "ROUTE_PROPOSED",
+        "ROUTE_SUSPENDED",
+        "ROUTE_RECALCULATED",
         "TRANSPORT_ASSIGNED",
+        "AMBULANCE_DEPARTED",
+        "AMBULANCE_ARRIVED",
+        "AMBULANCE_OFFLINE",
+        "AMBULANCE_RECONNECTED",
+        "HOSPITAL_CAPACITY_CHANGED",
         "HOSPITAL_ACCEPTED",
-        "HANDOFF_RECORDED"
+        "HANDOFF_RECORDED",
+        "CASE_CLOSED",
+        "RECEIPT_ACKNOWLEDGED",
+        "NOTIFICATION_SENT"
       ]
     },
     "aggregate_type": {
@@ -50,6 +71,26 @@
     "summary": {
       "type": "string",
       "minLength": 1
+    },
+    "correlation_id": {
+      "type": "string",
+      "description": "合并链路追踪：同一致事件流的所有事件共享"
+    },
+    "causation_id": {
+      "type": "string",
+      "description": "触发本事件的上一条事件标识"
+    },
+    "operator_id": {
+      "type": "string",
+      "description": "登记/判断/更正的责任人"
+    },
+    "role_required": {
+      "type": "string",
+      "description": "敏感字段（位置、病史）读取所需角色，配合投影做最小可见"
+    },
+    "payload": {
+      "type": "object",
+      "description": "业务数据统一放在 payload，交换层不展开校验，由应用层规则校验"
     }
   },
   "additionalProperties": true
